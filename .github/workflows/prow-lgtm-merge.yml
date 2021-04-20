@@ -1,5 +1,5 @@
-# Copyright (C) 2013-2019 Nicolas Lamirault <nicolas.lamirault@gmail.com>
-
+# Copyright (C) 2021 Nicolas Lamirault <nicolas.lamirault@gmail.com>
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,21 +11,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
----
-- name: Create X11 directory
-  file:
-    path: /etc/X11/xorg.conf.d
-    state: directory
-    mode: 0755
 
-- name: Setup X11 for French
-  copy:
-    src: 10-keyboard-layout.conf
-    dest: /etc/X11/xorg.conf.d/10-keyboard-layout.conf
-    mode: 0644
+name: Prow / Merge on lgtm label
+on:
+  schedule:
+  - cron: "0 * * * *"
 
-- name: Setup vconsole for French
-  copy:
-    src: vconsole.conf
-    dest: /etc/vconsole.conf
-    mode: 0644
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jpmcb/prow-github-actions@v1.1.2
+        with:
+          jobs: 'lgtm'
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+          # this configuration is optional and will default to 'merge'
+          # possible options are 'merge', 'rebase', or 'squash'
+          merge-method: 'squash'

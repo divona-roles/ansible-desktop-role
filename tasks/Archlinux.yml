@@ -116,7 +116,6 @@
     packages:
       - openvpn
       - wireguard-tools
-      - wireguard-arch
       - keepassxc
       - arch-audit
 
