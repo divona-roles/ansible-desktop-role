@@ -49,6 +49,7 @@
   vars:
     packages:
       - chromium
+      - google-chrome-beta
       # - brave
 
 - name: Install graphics applications
