@@ -22,8 +22,10 @@
   copy:
     src: 10-keyboard-layout.conf
     dest: /etc/X11/xorg.conf.d/10-keyboard-layout.conf
+    mode: 0644
 
 - name: Setup vconsole for French
   copy:
     src: vconsole.conf
     dest: /etc/vconsole.conf
+    mode: 0644
