@@ -13,7 +13,7 @@
 # limitations under the License.
 ---
 - name: Install X
-  pacman:
+  community.general.pacman:
     name: "{{ packages }}"
     state: present
   vars:
@@ -31,29 +31,23 @@
       - lightdm
       - lightdm-gtk-greeter-settings
       - lightdm-webkit2-greeter
+      - lightdm-webkit-theme-litarvan
       - light-locker
 
-# - name: Install themes
-#   pacman:
+# - name: Install web browsers (with Yay)
+#   kewlfft.aur.aur:
 #     name: "{{ packages }}"
+#     use: makepkg
 #     state: present
+#   become: yes
+#   become_user: aur_builder
 #   vars:
 #     packages:
-#       - arc-gtk-theme
-#       - adapta-gtk-theme
-
-- name: Install web browsers
-  pacman:
-    name: "{{ packages }}"
-    state: present
-  vars:
-    packages:
-      - chromium
-      - google-chrome-beta
-      # - brave
+#       - google-chrome-beta
+#       # - brave
 
 - name: Install graphics applications
-  pacman:
+  community.general.pacman:
     name: "{{ packages }}"
     state: present
   vars:
@@ -63,7 +57,7 @@
       - flameshot
 
 - name: Install video applications
-  pacman:
+  community.general.pacman:
     name: "{{ packages }}"
     state: present
   vars:
@@ -71,7 +65,7 @@
       - vlc
 
 - name: Install music applications
-  pacman:
+  community.general.pacman:
     name: "{{ packages }}"
     state: present
   vars:
@@ -81,8 +75,18 @@
       - pulsemixer
       - playerctl
 
+# - name: Install music applications with Yay
+#   community.general.pacman:
+#     name: "{{ packages }}"
+#     state: present
+#     executable: yay
+#     # extra_args: --builddir /var/cache/yay
+#   vars:
+#     packages:
+#       - spotify
+
 - name: Install communications applications
-  pacman:
+  community.general.pacman:
     name: "{{ packages }}"
     state: present
   vars:
@@ -91,8 +95,19 @@
       - vinagre
       - rdesktop
 
+# - name: Install communications applications with Yay
+#   community.general.pacman:
+#     name: "{{ packages }}"
+#     state: present
+#     executable: yay
+#     # extra_args: --builddir /var/cache/yay
+#   vars:
+#     packages:
+#       - slack-desktop
+#       - zoom
+
 - name: Install documentation applications
-  pacman:
+  community.general.pacman:
     name: "{{ packages }}"
     state: present
   vars:
@@ -101,7 +116,7 @@
       - mupdf
 
 - name: Install fonts
-  pacman:
+  community.general.pacman:
     name: "{{ packages }}"
     state: present
   vars:
@@ -109,8 +124,18 @@
       - awesome-terminal-fonts
       # - ttf-symbola
 
+# - name: Install fonts with Yay
+#   community.general.pacman:
+#     name: "{{ packages }}"
+#     state: present
+#     executable: yay
+#     # extra_args: --builddir /var/cache/yay
+#   vars:
+#     packages:
+#       - nerd-fonts-hack
+
 - name: Install security tools
-  pacman:
+  community.general.pacman:
     name: "{{ packages }}"
     state: present
   vars:
@@ -121,10 +146,32 @@
       - arch-audit
 
 - name: Install clipboard tools
-  pacman:
+  community.general.pacman:
     name: "{{ packages }}"
     state: present
   vars:
     packages:
       - clipmenu
       - clipnotify
+
+# - name: Install cloud development tools with Yay
+#   community.general.pacman:
+#     name: "{{ packages }}"
+#     state: present
+#     executable: yay
+#     # extra_args: --builddir /var/cache/yay
+#   vars:
+#     packages:
+#       - direnv-bin
+#       - tfenv
+#       - tgenv
+
+# - name: Install network tools with Yay
+#   community.general.pacman:
+#     name: "{{ packages }}"
+#     state: present
+#     executable: yay
+#     # extra_args: --builddir /var/cache/yay
+#   vars:
+#     packages:
+#       - iwtk
