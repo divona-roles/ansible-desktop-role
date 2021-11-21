@@ -161,6 +161,17 @@
       - keepassxc
       - arch-audit
 
+- name: Install | Torrent tools
+  community.general.pacman:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - deluge
+      - fragments
+      - transmission-gtk
+      - transmission-cli
+
 # - name: Install cloud development tools with Yay
 #   community.general.pacman:
 #     name: "{{ packages }}"
