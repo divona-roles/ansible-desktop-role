@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: Install X
+- name: Install | X utilities
   community.general.pacman:
     name: "{{ packages }}"
     state: present
@@ -33,6 +33,8 @@
       - lightdm-webkit2-greeter
       - lightdm-webkit-theme-litarvan
       - light-locker
+      - clipmenu
+      - clipnotify
 
 # - name: Install web browsers (with Yay)
 #   kewlfft.aur.aur:
@@ -46,7 +48,7 @@
 #       - google-chrome-beta
 #       # - brave
 
-- name: Install graphics applications
+- name: Install | Graphics applications
   community.general.pacman:
     name: "{{ packages }}"
     state: present
@@ -56,7 +58,7 @@
       - inkscape
       - flameshot
 
-- name: Install video applications
+- name: Install | Video applications
   community.general.pacman:
     name: "{{ packages }}"
     state: present
@@ -64,7 +66,7 @@
     packages:
       - vlc
 
-- name: Install music applications
+- name: Install | Music applications
   community.general.pacman:
     name: "{{ packages }}"
     state: present
@@ -85,7 +87,7 @@
 #     packages:
 #       - spotify
 
-- name: Install communications applications
+- name: Install | Communications applications
   community.general.pacman:
     name: "{{ packages }}"
     state: present
@@ -106,7 +108,7 @@
 #       - slack-desktop
 #       - zoom
 
-- name: Install documentation applications
+- name: Install | Documentation applications
   community.general.pacman:
     name: "{{ packages }}"
     state: present
@@ -115,7 +117,7 @@
       - evince
       - mupdf
 
-- name: Install fonts
+- name: Install | Fonts
   community.general.pacman:
     name: "{{ packages }}"
     state: present
@@ -134,7 +136,7 @@
 #     packages:
 #       - nerd-fonts-hack
 
-- name: Install security tools
+- name: Install | Security tools
   community.general.pacman:
     name: "{{ packages }}"
     state: present
@@ -143,16 +145,7 @@
       - openvpn
       - wireguard-tools
       - keepassxc
-      - arch-audit
-
-- name: Install clipboard tools
-  community.general.pacman:
-    name: "{{ packages }}"
-    state: present
-  vars:
-    packages:
-      - clipmenu
-      - clipnotify
+      - arch-audit     
 
 # - name: Install cloud development tools with Yay
 #   community.general.pacman:
@@ -175,3 +168,23 @@
 #   vars:
 #     packages:
 #       - iwtk
+
+- name: Install | Bluetooth tools
+  community.general.pacman:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - bluez
+      - bluez-utils
+      - bluez-tools
+      - blueman
+      - gnome-bluetooth
+  notify:
+    - Bluetooth service
+
+- name: System | Bluetooth service
+  ansible.builtin.systemd:
+    state: started
+    daemon_reload: true
+    name: bluetooth

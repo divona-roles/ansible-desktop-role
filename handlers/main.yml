@@ -1,2 +1,7 @@
 ---
 # handlers file for desktop
+- name: Bluetooth service
+  ansible.builtin.systemd:
+    state: started
+    daemon_reload: true
+    name: bluetooth
