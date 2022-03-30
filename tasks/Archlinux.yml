@@ -36,6 +36,7 @@
       - xorg-server
       - xorg-xinit
       - arandr
+      - accountsservice
       - slim
       - slim-themes
       - archlinux-themes-slim
@@ -47,8 +48,21 @@
       - lightdm-webkit2-greeter
       - lightdm-webkit-theme-litarvan
       - light-locker
+      - xss-lock
       - clipmenu
       - clipnotify
+
+- name: Systemd | Enable display manager
+  service:
+    name: lightdm
+    enabled: yes
+  ignore_errors: yes
+
+- name: Systemd | Start display manager
+  service:
+    name: lightdm
+    state: started
+  ignore_errors: yes
 
 # - name: Install web browsers (with Yay)
 #   kewlfft.aur.aur:
@@ -207,6 +221,11 @@
       - gnome-bluetooth
   notify:
     - Bluetooth service
+
+- name: System | Enable bluetooth service
+  service:
+    enabled: yes
+    name: bluetooth
 
 - name: System | Bluetooth service
   ansible.builtin.systemd:
