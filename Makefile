@@ -85,6 +85,12 @@ print-%:
 
 ##@ Development
 
+.PHONY: init
+init: ## Initialize environment
+	@poetry install --no-root
+
+# @poetry run pre-commit install
+
 clean: ## Cleanup
 	@echo -e "$(OK_COLOR)[$(APP)] Cleanup$(NO_COLOR)"
 	@find . -name "*.retry"|xargs rm -fr {} \;
@@ -93,20 +99,3 @@ clean: ## Cleanup
 .PHONY: validate
 validate: ## Execute git-hooks
 	@poetry run pre-commit run -a
-
-
-# ====================================
-# A N S I B L E
-# ====================================
-
-##@ Ansible
-
-.PHONY: ansible-init
-ansible-init: ## Bootstrap Ansible
-	@echo -e "$(OK_COLOR)[$(APP)] Install requirements$(NO_COLOR)"
-	@poetry install --no-root
-
-.PHONY: ansible-lint
-ansible-lint: ## Test Ansible role
-	@echo -e "$(OK_COLOR)[$(APP)] Verify Ansible$(NO_COLOR)"
-	@poetry run ansible-lint
